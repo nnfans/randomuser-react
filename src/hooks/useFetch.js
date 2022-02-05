@@ -1,4 +1,4 @@
-import { useReducer } from 'react';
+import { useReducer, useCallback } from 'react';
 import axios from 'axios';
 
 export const BASE_URL_API = 'https://randomuser.me/api/';
@@ -31,7 +31,7 @@ const fetchReducer = (state, action) => {
 export const useFetch = ({
   baseURL = BASE_URL_API,
   method = 'GET',
-  url = '',
+  url = '/',
 } = {}) => {
   const [{ status, data }, dispatch] = useReducer(fetchReducer, {
     status: statusType.IDLE,
@@ -39,21 +39,24 @@ export const useFetch = ({
     error: null,
   });
 
-  const fetch = async (axiosOptions) => {
-    try {
-      dispatch({ type: actionType.PENDING });
-      const data = await axios.request({
-        baseURL,
-        method,
-        url,
-        ...axiosOptions,
-      });
+  const fetch = useCallback(
+    async (axiosOptions) => {
+      try {
+        dispatch({ type: actionType.PENDING });
+        const data = await axios.request({
+          baseURL,
+          method,
+          url,
+          ...axiosOptions,
+        });
 
-      dispatch({ type: actionType.RESOLVED, data });
-    } catch (error) {
-      dispatch({ type: actionType.REJECTED, error });
-    }
-  };
+        dispatch({ type: actionType.RESOLVED, data });
+      } catch (error) {
+        dispatch({ type: actionType.REJECTED, error });
+      }
+    },
+    [baseURL, method, url]
+  );
 
   return { status, data, fetch };
 };
