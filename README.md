@@ -3,10 +3,15 @@
 ## Table of Contents
 
 [Overview](#overview)
+
 [Working Example](#working-example)
+
 [Running The Project Locally](#running-the-project-locally)
+
 [Features](#features)
+
 [Technologies](#technologies)
+
 [License](#license)
 
 ## Overview
