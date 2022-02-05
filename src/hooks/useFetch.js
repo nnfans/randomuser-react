@@ -31,22 +31,23 @@ const fetchReducer = (state, action) => {
 export const useFetch = ({
   baseURL = BASE_URL_API,
   method = 'GET',
-  url,
+  url = '',
 } = {}) => {
-  if (!url) {
-    throw new Error("URL can't be empty");
-  }
-
   const [{ status, data }, dispatch] = useReducer(fetchReducer, {
     status: statusType.IDLE,
     data: null,
     error: null,
   });
 
-  const fetch = async () => {
+  const fetch = async (axiosOptions) => {
     try {
       dispatch({ type: actionType.PENDING });
-      const data = await axios.request({ method, baseURL, url });
+      const data = await axios.request({
+        baseURL,
+        method,
+        url,
+        ...axiosOptions,
+      });
 
       dispatch({ type: actionType.RESOLVED, data });
     } catch (error) {
