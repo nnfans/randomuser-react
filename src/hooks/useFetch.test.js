@@ -8,7 +8,7 @@ jest.mock('axios');
 const axiosDefaultParameter = {
   baseURL: BASE_URL_API,
   method: 'GET',
-  url: '',
+  url: '/',
 };
 
 describe('useFetch custom hook', () => {
@@ -67,7 +67,7 @@ describe('useFetch custom hook', () => {
     });
 
     it('call axios.request with passed default parameter', async () => {
-      const parameter = { baseURL: 'baseURL', method: 'METHOD', url: '/' };
+      const parameter = { baseURL: 'baseURL', method: 'METHOD', url: '/url' };
       const { result } = renderHook(() => useFetch(parameter));
 
       await act(result.current.fetch);
