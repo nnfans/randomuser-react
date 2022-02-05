@@ -88,5 +88,14 @@ describe('useFetch custom hook', () => {
         ...addedParams,
       });
     });
+
+    it("fetch doesn't change after calling it", async () => {
+      const { result } = renderHook(() => useFetch());
+      const oldFetch = result.current.fetch;
+      await act(() => result.current.fetch());
+
+      expect(axios.request).toHaveBeenCalledTimes(1);
+      expect(result.current.fetch).toEqual(oldFetch);
+    });
   });
 });
