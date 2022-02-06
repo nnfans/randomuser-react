@@ -14,7 +14,7 @@ const genderItems = [
 ];
 
 const RandomUser = () => {
-  const { data, parameter, setGender, setKeyword, status } =
+  const { data, parameter, setGender, setKeyword, status, resetFilter } =
     useRandomUserData();
   const [keywordDebounce, setKeywordDebounce] = useState('');
 
@@ -25,6 +25,11 @@ const RandomUser = () => {
 
     return () => clearTimeout(debounceTimeout);
   }, [setKeyword, keywordDebounce]);
+
+  const handleResetKeyword = () => {
+    setKeywordDebounce('');
+    resetFilter();
+  };
 
   return (
     <div className="d-flex flex-column">
@@ -41,7 +46,11 @@ const RandomUser = () => {
           items={genderItems}
           setValue={setGender}
         />
-        <button type="button" className="btn btn-secondary align-self-end">
+        <button
+          type="button"
+          className="btn btn-secondary align-self-end"
+          onClick={handleResetKeyword}
+        >
           Reset Filter
         </button>
       </div>

@@ -9,6 +9,10 @@ const oldState = {
 
 Object.freeze(oldState);
 
+const parameterReducerWithOldstate = (action) => {
+  return parameterReducer(oldState, action);
+};
+
 describe('parameterReducer()', () => {
   it('should throw an error if action type is invalid', () => {
     expect(() => parameterReducer('state', { type: 'invalid' })).toThrowError(
@@ -18,23 +22,19 @@ describe('parameterReducer()', () => {
 
   describe('action.type SET_GENDER', () => {
     it('should set gender', () => {
-      const state = parameterReducer(oldState, {
+      const state = parameterReducerWithOldstate({
         type: actionType.SET_GENDER,
         gender: 'gender',
       });
-
-      expect(oldState).not.toBe(state);
 
       expect(state).toStrictEqual({ ...state, gender: 'gender' });
     });
 
     it('should delete gender key as gender is falsy value', () => {
-      const state = parameterReducer(oldState, {
+      const state = parameterReducerWithOldstate({
         type: actionType.SET_GENDER,
         gender: '',
       });
-
-      expect(oldState).not.toBe(state);
 
       const newState = Object.assign({}, oldState);
       delete newState.gender;
@@ -45,23 +45,19 @@ describe('parameterReducer()', () => {
 
   describe('action.type SET_KEYWORD', () => {
     it('should set keyword', () => {
-      const state = parameterReducer(oldState, {
+      const state = parameterReducerWithOldstate({
         type: actionType.SET_KEYWORD,
         keyword: 'keyword',
       });
-
-      expect(oldState).not.toBe(state);
 
       expect(state).toStrictEqual({ ...state, keyword: 'keyword' });
     });
 
     it('should delete keyword key as keyword is falsy value', () => {
-      const state = parameterReducer(oldState, {
+      const state = parameterReducerWithOldstate({
         type: actionType.SET_KEYWORD,
         keyword: '',
       });
-
-      expect(oldState).not.toBe(state);
 
       const newState = Object.assign({}, oldState);
       delete newState.keyword;
@@ -73,14 +69,26 @@ describe('parameterReducer()', () => {
   describe('action.type SET_PAGE', () => {
     it('should set page', () => {
       const page = 2;
-      const state = parameterReducer(oldState, {
+      const state = parameterReducerWithOldstate({
         type: actionType.SET_PAGE,
         page,
       });
 
-      expect(oldState).not.toBe(state);
-
       expect(state).toStrictEqual({ ...state, page });
+    });
+  });
+
+  describe('action.type RESET_FILTER', () => {
+    it('should delete keyword and gender', () => {
+      const state = parameterReducerWithOldstate({
+        type: actionType.RESET_FILTER,
+      });
+
+      const newState = Object.assign({}, oldState);
+      delete newState.keyword;
+      delete newState.gender;
+
+      expect(state).toStrictEqual({ ...newState });
     });
   });
 });

@@ -13,15 +13,36 @@ export const useRandomUserData = () => {
     fetch({ params: parameter });
   }, [fetch, parameter]);
 
-  useEffect(reload, [reload]);
+  useEffect(() => {
+    reload();
+  }, [reload]);
 
   const setGender = (gender) => {
     dispatchParameter({ type: actionType.SET_GENDER, gender });
   };
 
-  const setKeyword = useCallback((keyword) => {
-    dispatchParameter({ type: actionType.SET_KEYWORD, keyword });
-  }, []);
+  const setKeyword = useCallback(
+    (keyword) => {
+      // is keyword different than current keyword
+      // also check keyword property
+      if (parameter.keyword !== keyword && (parameter.keyword || keyword)) {
+        dispatchParameter({ type: actionType.SET_KEYWORD, keyword });
+      }
+    },
+    [parameter.keyword]
+  );
 
-  return { data, reload, status, parameter, setGender, setKeyword };
+  const resetFilter = () => {
+    dispatchParameter({ type: actionType.RESET_FILTER });
+  };
+
+  return {
+    data,
+    reload,
+    status,
+    parameter,
+    setGender,
+    setKeyword,
+    resetFilter,
+  };
 };
