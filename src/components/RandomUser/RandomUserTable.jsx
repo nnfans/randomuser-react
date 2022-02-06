@@ -19,7 +19,7 @@ function RandomUserTable(props) {
     {
       name: 'registrationDate',
       label: 'Registration Date',
-      field: 'registrationDate',
+      field: ({ registered: { date } }) => date,
     },
   ];
 
