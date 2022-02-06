@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { statusType } from '../../hooks/useFetch';
 
 import Input from '../Input/Input';
 import Select from '../Select/Select';
@@ -13,7 +14,8 @@ const genderItems = [
 ];
 
 const RandomUser = () => {
-  const { data, parameter, setGender, setKeyword } = useRandomUserData();
+  const { data, parameter, setGender, setKeyword, status } =
+    useRandomUserData();
   const [keywordDebounce, setKeywordDebounce] = useState('');
 
   useEffect(() => {
@@ -44,7 +46,10 @@ const RandomUser = () => {
         </button>
       </div>
       <div className="p-2">
-        <RandomUserTable data={data} />
+        <RandomUserTable
+          data={data}
+          isLoading={status === statusType.PENDING}
+        />
       </div>
     </div>
   );

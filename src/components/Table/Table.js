@@ -29,14 +29,28 @@ const makeTableRenderRow = (columns) => {
 };
 
 function Table(props) {
-  const { rows, columns } = props;
+  const { rows, columns, isLoading } = props;
 
   return (
     <table className={'table table-striped ' + props.className}>
       <thead>
         <tr>{columns.map(tableRenderHeaderCell)}</tr>
       </thead>
-      <tbody>{(rows || []).map(makeTableRenderRow(columns))}</tbody>
+      <tbody>
+        {isLoading && (
+          <tr className="text-center">
+            <td colspan={columns.length}>
+              <div
+                className="spinner-border spinner-border-sm text-secondary"
+                role="status"
+              >
+                <span className="visually-hidden">Loading...</span>
+              </div>
+            </td>
+          </tr>
+        )}
+        {(rows || []).map(makeTableRenderRow(columns))}
+      </tbody>
     </table>
   );
 }
