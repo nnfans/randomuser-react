@@ -39,7 +39,7 @@ function Table(props) {
       <tbody>
         {isLoading && (
           <tr className="text-center">
-            <td colspan={columns.length}>
+            <td colSpan={columns.length}>
               <div
                 className="spinner-border spinner-border-sm text-secondary"
                 role="status"
