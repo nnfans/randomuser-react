@@ -36,6 +36,17 @@ export const useRandomUserData = () => {
     dispatchParameter({ type: actionType.RESET_FILTER });
   };
 
+  const setSort = useCallback(
+    (sort) => {
+      // is sort different than current keyword
+      // also check keyword property
+      if (parameter.sort !== sort && (parameter.sort || sort)) {
+        dispatchParameter({ type: actionType.SET_SORT, sort });
+      }
+    },
+    [parameter.sort]
+  );
+
   return {
     data,
     reload,
@@ -44,5 +55,6 @@ export const useRandomUserData = () => {
     setGender,
     setKeyword,
     resetFilter,
+    setSort,
   };
 };
