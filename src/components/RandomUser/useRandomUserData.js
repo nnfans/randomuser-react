@@ -9,7 +9,8 @@ const parameterReducer = (state, action) => {
   switch (action.type) {
     case actionType.SET_GENDER: {
       if (!action.gender) {
-        return { ...state, gender: undefined };
+        delete state.gender;
+        return { ...state };
       }
       return { ...state, gender: action.gender };
     }
