@@ -1,6 +1,31 @@
-const tableRenderHeaderCell = ({ name, label }) => {
-  return <th key={name}>{label}</th>;
-};
+import { useEffect } from 'react';
+import { FaSort, FaSortDown, FaSortUp } from 'react-icons/fa';
+import { useSorts } from './useSorts';
+
+const makeTableRenderHeaderCell =
+  ({ sorts, toggleSort }) =>
+  ({ name, label }) => {
+    const sortIndex = sorts.findIndex((sort) => sort.name === name);
+    const sortIconRender =
+      sortIndex === -1 ? (
+        <FaSort className="text-secondary" />
+      ) : sorts[sortIndex].sort === 'asc' ? (
+        <FaSortUp className="text-primary" />
+      ) : (
+        <FaSortDown className="text-primary" />
+      );
+
+    return (
+      <th key={name}>
+        <div className="d-flex d-flex justify-content-between">
+          <span onClick={() => toggleSort(name)} style={{ cursor: 'pointer' }}>
+            {label}
+          </span>
+          <span className="text-end">{sortIconRender}</span>
+        </div>
+      </th>
+    );
+  };
 
 const makeTableRenderCell = (row, rowIndex, rows) => {
   return (column, columnIndex, columns) => {
@@ -28,13 +53,20 @@ const makeTableRenderRow = (columns) => {
   };
 };
 
-function Table(props) {
-  const { rows, columns, isLoading } = props;
+const Table = (props) => {
+  const { rows, columns, isLoading, onRequest } = props;
+  const { sorts, toggleSort, parsedSort } = useSorts();
+
+  useEffect(() => {
+    if (typeof onRequest === 'function') {
+      onRequest.call(null, { sort: parsedSort });
+    }
+  }, [onRequest, parsedSort]);
 
   return (
     <table className={'table table-striped ' + props.className}>
       <thead>
-        <tr>{columns.map(tableRenderHeaderCell)}</tr>
+        <tr>{columns.map(makeTableRenderHeaderCell({ sorts, toggleSort }))}</tr>
       </thead>
       <tbody>
         {isLoading && (
@@ -53,6 +85,6 @@ function Table(props) {
       </tbody>
     </table>
   );
-}
+};
 
 export default Table;
