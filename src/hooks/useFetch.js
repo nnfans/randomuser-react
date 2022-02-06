@@ -43,7 +43,7 @@ export const useFetch = ({
     async (axiosOptions) => {
       try {
         dispatch({ type: actionType.PENDING });
-        const data = await axios.request({
+        const { data } = await axios.request({
           baseURL,
           method,
           url,

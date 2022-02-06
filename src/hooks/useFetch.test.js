@@ -19,10 +19,10 @@ describe('useFetch custom hook', () => {
   });
 
   describe('fetch()', () => {
-    it('data is equal to axios resolved value', async () => {
+    it('data is equal to property data of axios resolved value', async () => {
       const { result } = renderHook(() => useFetch());
 
-      axios.request.mockResolvedValue('data');
+      axios.request.mockResolvedValue({ data: 'data' });
 
       await act(result.current.fetch);
 
@@ -33,7 +33,7 @@ describe('useFetch custom hook', () => {
       const { result, waitForNextUpdate } = renderHook(() => useFetch());
 
       axios.request.mockImplementation(
-        () => new Promise((resolve) => setTimeout(resolve, 1000))
+        () => new Promise((resolve) => setTimeout(() => resolve({}), 1000))
       );
 
       await act(async () => {
