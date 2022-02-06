@@ -1,7 +1,7 @@
 import { useCallback } from 'react';
 
 const renderItem = (item) => {
-  return item === 'object' ? (
+  return typeof item === 'object' ? (
     <option key={item.value}>{item.label}</option>
   ) : (
     <option key={item}>{item}</option>
