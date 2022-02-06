@@ -14,6 +14,13 @@ const parameterReducer = (state, action) => {
       }
       return { ...state, gender: action.gender };
     }
+    case actionType.SET_KEYWORD: {
+      if (!action.keyword) {
+        delete state.keyword;
+        return { ...state };
+      }
+      return { ...state, keyword: action.keyword };
+    }
     default: {
       throw new Error(`Unhandled action type: ${action.type}`);
     }
@@ -36,5 +43,9 @@ export const useRandomUserData = () => {
     dispatchParameter({ type: actionType.SET_GENDER, gender });
   };
 
-  return { data, reload, status, parameter, setGender };
+  const setKeyword = useCallback((keyword) => {
+    dispatchParameter({ type: actionType.SET_KEYWORD, keyword });
+  }, []);
+
+  return { data, reload, status, parameter, setGender, setKeyword };
 };
