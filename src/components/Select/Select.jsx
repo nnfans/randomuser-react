@@ -2,7 +2,9 @@ import { useCallback } from 'react';
 
 const renderItem = (item) => {
   return typeof item === 'object' ? (
-    <option key={item.value}>{item.label}</option>
+    <option key={item.value} value={item.value}>
+      {item.label}
+    </option>
   ) : (
     <option key={item}>{item}</option>
   );
