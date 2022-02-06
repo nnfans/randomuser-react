@@ -1,3 +1,4 @@
+import { format } from 'date-fns';
 import Table from '../Table/Table';
 
 function RandomUserTable(props) {
@@ -19,7 +20,8 @@ function RandomUserTable(props) {
     {
       name: 'registrationDate',
       label: 'Registration Date',
-      field: ({ registered: { date } }) => date,
+      field: ({ registered: { date } }) =>
+        format(new Date(date), 'dd-MM-yyyy HH:mm'),
     },
   ];
 
