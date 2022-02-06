@@ -3,6 +3,7 @@ export const actionType = {
   SET_KEYWORD: 'SET_KEYWORD',
   SET_PAGE: 'SET_PAGE',
   RESET_FILTER: 'RESET_FILTER',
+  SET_SORT: 'SET_SORT',
 };
 
 export const parameterReducer = (state, action) => {
@@ -29,6 +30,13 @@ export const parameterReducer = (state, action) => {
       delete newState.gender;
       delete newState.keyword;
       return newState;
+    }
+    case actionType.SET_SORT: {
+      if (!action.sort) {
+        delete newState.sort;
+        return newState;
+      }
+      return { ...state, sort: action.sort };
     }
     default: {
       throw new Error(`Unhandled action type: ${action.type}`);

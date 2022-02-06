@@ -91,4 +91,27 @@ describe('parameterReducer()', () => {
       expect(state).toStrictEqual({ ...newState });
     });
   });
+
+  describe('action.type SET_SORT', () => {
+    it('should set sort', () => {
+      const state = parameterReducerWithOldstate({
+        type: actionType.SET_SORT,
+        sort: 'sort',
+      });
+
+      expect(state).toStrictEqual({ ...state, sort: 'sort' });
+    });
+
+    it('should delete sort key as sort is falsy value', () => {
+      const state = parameterReducerWithOldstate({
+        type: actionType.SET_SORT,
+        sort: '',
+      });
+
+      const newState = Object.assign({}, oldState);
+      delete newState.sort;
+
+      expect(state).toStrictEqual(newState);
+    });
+  });
 });
