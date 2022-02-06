@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import Input from '../Input/Input';
 import Select from '../Select/Select';
@@ -13,8 +13,16 @@ const genderItems = [
 ];
 
 const RandomUser = () => {
-  const { data, parameter, setGender } = useRandomUserData();
-  const [keyword, setKeyword] = useState('');
+  const { data, parameter, setGender, setKeyword } = useRandomUserData();
+  const [keywordDebounce, setKeywordDebounce] = useState('');
+
+  useEffect(() => {
+    const debounceTimeout = setTimeout(() => {
+      setKeyword(keywordDebounce);
+    }, 500);
+
+    return () => clearTimeout(debounceTimeout);
+  }, [setKeyword, keywordDebounce]);
 
   return (
     <div className="d-flex flex-column">
@@ -22,8 +30,8 @@ const RandomUser = () => {
         <Input
           label="Search"
           name="keyword"
-          value={keyword}
-          setValue={setKeyword}
+          value={keywordDebounce}
+          setValue={setKeywordDebounce}
         />
         <Select
           label="Gender"
