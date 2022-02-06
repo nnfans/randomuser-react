@@ -22,6 +22,7 @@ const RandomUser = () => {
     status,
     resetFilter,
     setSort,
+    setPage,
   } = useRandomUserData();
   const [keywordDebounce, setKeywordDebounce] = useState('');
 
@@ -72,6 +73,8 @@ const RandomUser = () => {
         <RandomUserTable
           onRequest={handleOnRequest}
           data={data}
+          page={parameter.page}
+          setPage={setPage}
           isLoading={status === statusType.PENDING}
         />
       </div>

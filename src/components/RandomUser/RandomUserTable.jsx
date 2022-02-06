@@ -1,8 +1,10 @@
 import { format } from 'date-fns';
+
 import Table from '../Table/Table';
+import PaginationBar from '../PaginationBar/PaginationBar';
 
 function RandomUserTable(props) {
-  const { data, isLoading, onRequest } = props;
+  const { data, isLoading, onRequest, page, setPage } = props;
 
   const columns = [
     {
@@ -26,13 +28,16 @@ function RandomUserTable(props) {
   ];
 
   return (
-    <Table
-      className={props.className}
-      rows={data?.results}
-      columns={columns}
-      isLoading={isLoading}
-      onRequest={onRequest}
-    />
+    <div>
+      <Table
+        className={props.className}
+        rows={data?.results}
+        columns={columns}
+        isLoading={isLoading}
+        onRequest={onRequest}
+      />
+      <PaginationBar page={page} totalPage={10} setPage={setPage} />
+    </div>
   );
 }
 

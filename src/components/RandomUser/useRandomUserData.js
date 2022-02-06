@@ -5,7 +5,7 @@ import { parameterReducer, actionType } from './parameterReducer';
 export const useRandomUserData = () => {
   const { data, fetch, status } = useFetch();
   const [parameter, dispatchParameter] = useReducer(parameterReducer, {
-    results: 20,
+    results: 10,
     page: 1,
   });
 
@@ -47,6 +47,10 @@ export const useRandomUserData = () => {
     [parameter.sort]
   );
 
+  const setPage = (page) => {
+    dispatchParameter({ type: actionType.SET_PAGE, page });
+  };
+
   return {
     data,
     reload,
@@ -56,5 +60,6 @@ export const useRandomUserData = () => {
     setKeyword,
     resetFilter,
     setSort,
+    setPage,
   };
 };
