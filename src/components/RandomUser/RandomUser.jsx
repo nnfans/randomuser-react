@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { statusType } from '../../hooks/useFetch';
 
 import Input from '../Input/Input';
@@ -14,8 +14,15 @@ const genderItems = [
 ];
 
 const RandomUser = () => {
-  const { data, parameter, setGender, setKeyword, status, resetFilter } =
-    useRandomUserData();
+  const {
+    data,
+    parameter,
+    setGender,
+    setKeyword,
+    status,
+    resetFilter,
+    setSort,
+  } = useRandomUserData();
   const [keywordDebounce, setKeywordDebounce] = useState('');
 
   useEffect(() => {
@@ -30,6 +37,13 @@ const RandomUser = () => {
     setKeywordDebounce('');
     resetFilter();
   };
+
+  const handleOnRequest = useCallback(
+    ({ sort }) => {
+      setSort(sort);
+    },
+    [setSort]
+  );
 
   return (
     <div className="d-flex flex-column">
@@ -56,6 +70,7 @@ const RandomUser = () => {
       </div>
       <div className="p-2">
         <RandomUserTable
+          onRequest={handleOnRequest}
           data={data}
           isLoading={status === statusType.PENDING}
         />

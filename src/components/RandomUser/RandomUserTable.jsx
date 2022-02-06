@@ -1,7 +1,7 @@
 import Table from '../Table/Table';
 
 function RandomUserTable(props) {
-  const { data, isLoading } = props;
+  const { data, isLoading, onRequest } = props;
 
   const columns = [
     {
@@ -29,6 +29,7 @@ function RandomUserTable(props) {
       rows={data?.results}
       columns={columns}
       isLoading={isLoading}
+      onRequest={onRequest}
     />
   );
 }
