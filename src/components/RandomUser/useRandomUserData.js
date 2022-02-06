@@ -6,6 +6,7 @@ export const useRandomUserData = () => {
   const { data, fetch, status } = useFetch();
   const [parameter, dispatchParameter] = useReducer(parameterReducer, {
     results: 20,
+    page: 1,
   });
 
   const reload = useCallback(() => {

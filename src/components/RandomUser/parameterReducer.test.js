@@ -2,6 +2,7 @@ import { actionType, parameterReducer } from './parameterReducer';
 
 const oldState = {
   results: 20,
+  page: 1,
   gender: 'oldGender',
   keyword: 'oldKeyword',
 };
@@ -66,6 +67,20 @@ describe('parameterReducer()', () => {
       delete newState.keyword;
 
       expect(state).toStrictEqual(newState);
+    });
+  });
+
+  describe('action.type SET_PAGE', () => {
+    it('should set page', () => {
+      const page = 2;
+      const state = parameterReducer(oldState, {
+        type: actionType.SET_PAGE,
+        page,
+      });
+
+      expect(oldState).not.toBe(state);
+
+      expect(state).toStrictEqual({ ...state, page });
     });
   });
 });

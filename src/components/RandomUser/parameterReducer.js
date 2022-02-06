@@ -1,6 +1,7 @@
 export const actionType = {
   SET_GENDER: 'SET_GENDER',
   SET_KEYWORD: 'SET_KEYWORD',
+  SET_PAGE: 'SET_PAGE',
 };
 
 export const parameterReducer = (state, action) => {
@@ -19,6 +20,9 @@ export const parameterReducer = (state, action) => {
         return newState;
       }
       return { ...state, keyword: action.keyword };
+    }
+    case actionType.SET_PAGE: {
+      return { ...state, page: action.page };
     }
     default: {
       throw new Error(`Unhandled action type: ${action.type}`);
