@@ -39,10 +39,12 @@ Demo live version [randomuser-react.herokuapp.com](https://randomuser-react.hero
 - Sort by column
 - Reset Filter
 
-## Technologies
+## Technologies / Library
 
 - Create React App
-- TailwindCSS
+- Bootstrap 5
+- Axios
+- date-fns
 
 ## License
 
