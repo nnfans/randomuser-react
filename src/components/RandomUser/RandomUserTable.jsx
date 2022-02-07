@@ -3,7 +3,7 @@ import { format } from 'date-fns';
 import Table from '../Table/Table';
 import PaginationBar from '../PaginationBar/PaginationBar';
 
-function RandomUserTable(props) {
+const RandomUserTable = (props) => {
   const { data, isLoading, onRequest, page, setPage } = props;
 
   const columns = [
@@ -39,6 +39,6 @@ function RandomUserTable(props) {
       <PaginationBar page={page} totalPage={10} setPage={setPage} />
     </div>
   );
-}
+};
 
 export default RandomUserTable;

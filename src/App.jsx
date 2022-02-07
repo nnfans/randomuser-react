@@ -1,7 +1,7 @@
 import RandomUser from './components/RandomUser/RandomUser';
 
-function App() {
+const App = () => {
   return <RandomUser />;
-}
+};
 
 export default App;
