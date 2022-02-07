@@ -1,7 +1,8 @@
 import { useCallback } from 'react';
 
 const Input = (props) => {
-  const { id, name, label, type, placeholder, value, setValue } = props;
+  const { id, name, label, type, placeholder, value, setValue, className } =
+    props;
 
   const handleOnChange = useCallback(
     (event) => {
@@ -11,7 +12,7 @@ const Input = (props) => {
   );
 
   return (
-    <div className={props.className}>
+    <div className={className || ''}>
       <label htmlFor={id} className="form-label">
         {label}
       </label>

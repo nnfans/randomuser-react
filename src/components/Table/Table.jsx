@@ -54,7 +54,7 @@ const makeTableRenderRow = (columns) => {
 };
 
 const Table = (props) => {
-  const { rows, columns, isLoading, onRequest } = props;
+  const { rows, columns, isLoading, onRequest, className } = props;
   const { sorts, toggleSort, parsedSort } = useSorts();
 
   useEffect(() => {
@@ -64,7 +64,7 @@ const Table = (props) => {
   }, [onRequest, parsedSort]);
 
   return (
-    <table className={'table table-striped ' + props.className}>
+    <table className={'table table-striped ' + (className || '')}>
       <thead>
         <tr>{columns.map(makeTableRenderHeaderCell({ sorts, toggleSort }))}</tr>
       </thead>

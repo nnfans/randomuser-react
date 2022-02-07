@@ -4,7 +4,7 @@ import Table from '../Table/Table';
 import PaginationBar from '../PaginationBar/PaginationBar';
 
 const RandomUserTable = (props) => {
-  const { data, isLoading, onRequest, page, setPage } = props;
+  const { data, isLoading, onRequest, page, setPage, className } = props;
 
   const columns = [
     {
@@ -30,7 +30,7 @@ const RandomUserTable = (props) => {
   return (
     <div>
       <Table
-        className={props.className}
+        className={className || ''}
         rows={data?.results}
         columns={columns}
         isLoading={isLoading}
